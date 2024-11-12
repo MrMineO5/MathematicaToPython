@@ -125,6 +125,8 @@ ToPython[expression_, OptionsPattern[]] :=
         PythonForm[Csch[a_]] := format["1 / numpy.sinh(``)", a];
         PythonForm[Sech[a_]] := format["1 / numpy.cosh(``)", a];
         PythonForm[Coth[a_]] := format["1 / numpy.tanh(``)", a];
+        (* Functions with different names in numpy *)
+        PythonForm[Tr[a_]] := format["numpy.trace(``)", a];
         (* Handling arrays *)
         PythonForm[a_NumericArray] := np <> "array(" <> StringReplace[
             ToString @ Normal @ a, {"{" -> "[", "}" -> "]"}] <> ")";
