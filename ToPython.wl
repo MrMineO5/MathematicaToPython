@@ -75,8 +75,7 @@ ToPython[expression_, OptionsPattern[]] :=
                 Abort[]
             );
         (* Simple math *)
-        PythonForm[Rational[a_, b_]] := ToString[N[a / b, $MachinePrecision
-            ], FortranForm];
+        PythonForm[Rational[a_, b_]] := format["(`` / ``)", a, b];
         PythonForm[a_Rational] := ToString[N[a, $MachinePrecision], FortranForm
             ];
         PythonForm[Complex[a_, b_]] := format["complex(``, ``)", a, b
@@ -155,9 +154,8 @@ ToPython[expression_, OptionsPattern[]] :=
              "\[CapitalChi]" -> "Chi", "\[CapitalPsi]" -> "Psi", "\[CapitalOmega]"
              -> "Omega"};
         plusminusrule = {"+ -" -> "-"};
-        (* Everything else *)
-        PythonForm[h_[args__]] := np <> ToLowerCase[PythonForm[h]] <>
-             "(" <> PythonForm[args] <> ")";
+        (* Everything else *)PythonForm[h_[args__]] := np <> ToLowerCase[ToString[h]] <>
+            "(" <> StringRiffle[PythonForm /@ List[args], ", "] <> ")";
         PythonForm[allOther_] := StringReplace[ToString[allOther, FortranForm
             ], greekrule];
         result = StringReplace[PythonForm[expression], greekrule ~ Join
