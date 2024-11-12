@@ -127,6 +127,9 @@ ToPython[expression_, OptionsPattern[]] :=
         PythonForm[Coth[a_]] := format["1 / numpy.tanh(``)", a];
         (* Functions with different names in numpy *)
         PythonForm[Tr[a_]] := format["numpy.trace(``)", a];
+        (* Handling dot products with more than 2 arguments using multi_dot *)
+        PythonForm[Dot[a_, b_, c__]] := np <> "linalg.multi_dot([" <> StringRiffle[
+            PythonForm /@ List[a, b, c], ", "] <> "])";
         (* Handling arrays *)
         PythonForm[a_NumericArray] := np <> "array(" <> StringReplace[
             ToString @ Normal @ a, {"{" -> "[", "}" -> "]"}] <> ")";
