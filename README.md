@@ -8,7 +8,7 @@ The quickest way to use the package is to directly load it from the master branc
 repository by running the following code in a Mathematica notebook:
 
 ```Mathematica
-Import["https://raw.githubusercontent.com/zwicker-group/MathematicaToPython/master/ToPython.wl"]
+Import["https://raw.githubusercontent.com/MrMineO5/MathematicaToPython/master/ToPython.wl"]
 ```
 
 ## Installation
